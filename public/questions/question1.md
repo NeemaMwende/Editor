@@ -9,3 +9,4 @@ Which router option is needed to disable the HTML5 pushState API for compatibili
 - [x] useHash: true
 - [ ] useHTML5: false
 - [ ] pushState: true
+
