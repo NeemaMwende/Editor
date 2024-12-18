@@ -14,8 +14,15 @@ import 'froala-editor/js/plugins/save.min.js';
 import 'froala-editor/js/plugins/markdown.min.js';
 import 'froala-editor/js/plugins/code_view.min.js';
 
+// Define the props interface
+interface MyFroalaEditorProps {
+  config: Record<string, any>;          
+  tag: keyof JSX.IntrinsicElements;     
+  model: string;                        
+  onModelChange: (content: string) => void;  
+}
 
-const MyFroalaEditor = ({ config, tag, model, onModelChange }) => {
+const MyFroalaEditor: React.FC<MyFroalaEditorProps> = ({ config, tag, model, onModelChange }) => {
   return <FroalaEditorComponent tag={tag} config={config} model={model} onModelChange={onModelChange} />;
 };
 
