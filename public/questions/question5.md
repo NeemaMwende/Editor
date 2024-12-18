@@ -1,10 +1,12 @@
 ---
 type: code
-correctAnswer: "console.log('Hello, World!')"
+correctAnswer: "console.log('Hello, World!');"
+options:
+  - "console.print('Hello, World!')"
+  - "log.console('Hello, World!')"
+  - "console.write('Hello, World!')"
+  - "console.log('Hello, World!');"
 ---
 
 What is the correct way to log "Hello, World!" in JavaScript?
 
-\`\`\`js
-console.log('Hello, World!')
-\`\`\`

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 import matter from "gray-matter";
 
@@ -7,6 +7,7 @@ interface Question {
   data: {
     type: string;
     correctAnswer: string | string[];
+    options?: string[];
   };
 }
 
@@ -33,8 +34,16 @@ const Quiz = () => {
           return matter(text);
         })
       );
+
       setQuestions(
-        loadedQuestions.map(({ content, data }) => ({ content, data }))
+        loadedQuestions.map(({ content, data }) => ({
+          content,
+          data: {
+            type: data.type || "",
+            correctAnswer: data.correctAnswer || "",
+            options: data.options || [],
+          },
+        }))
       );
     };
 
@@ -87,42 +96,38 @@ const Quiz = () => {
       <div className="mt-4">
         {currentQuestion.data.type === "checkbox" ? (
           <div>
-            {["pushState: false", "useHash: true", "useHTML5: false", "pushState: true"].map(
-              (option, idx) => (
-                <div key={idx}>
-                  <label>
-                    <input
-                      type="checkbox"
-                      value={option}
-                      checked={(userAnswer as string[]).includes(option)}
-                      onChange={handleAnswerChange}
-                      className="mr-2"
-                    />
-                    {option}
-                  </label>
-                </div>
-              )
-            )}
+            {currentQuestion.data.options?.map((option, idx) => (
+              <div key={idx}>
+                <label>
+                  <input
+                    type="checkbox"
+                    value={option}
+                    checked={(userAnswer as string[]).includes(option)}
+                    onChange={handleAnswerChange}
+                    className="mr-2"
+                  />
+                  {option}
+                </label>
+              </div>
+            ))}
           </div>
         ) : (
           <div>
-            {["pushState: false", "useHash: true", "useHTML5: false", "pushState: true"].map(
-              (option, idx) => (
-                <div key={idx}>
-                  <label className="block">
-                    <input
-                      type="radio"
-                      name="answer"
-                      value={option}
-                      checked={userAnswer === option}
-                      onChange={handleAnswerChange}
-                      className="mr-2"
-                    />
-                    {option}
-                  </label>
-                </div>
-              )
-            )}
+            {currentQuestion.data.options?.map((option, idx) => (
+              <div key={idx}>
+                <label className="block">
+                  <input
+                    type="radio"
+                    name="answer"
+                    value={option}
+                    checked={userAnswer === option}
+                    onChange={handleAnswerChange}
+                    className="mr-2"
+                  />
+                  {option}
+                </label>
+              </div>
+            ))}
           </div>
         )}
       </div>
