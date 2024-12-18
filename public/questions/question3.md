@@ -1,4 +1,5 @@
 ---
+tags: [beginner-friendly-javascript, javascript, programming]
 type: radio
 correctAnswer: "let"
 options:
@@ -10,7 +11,3 @@ options:
 
 Which keyword is used to declare a block-scoped variable in JavaScript?
 
-<!-- - [x] let
-- [ ] var
-- [ ] const
-- [ ] function -->

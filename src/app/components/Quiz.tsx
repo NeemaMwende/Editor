@@ -24,6 +24,7 @@ const Quiz = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [userAnswer, setUserAnswer] = useState<string | string[]>([]);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     const loadQuestions = async () => {
@@ -34,7 +35,6 @@ const Quiz = () => {
           return matter(text);
         })
       );
-
       setQuestions(
         loadedQuestions.map(({ content, data }) => ({
           content,
@@ -51,7 +51,7 @@ const Quiz = () => {
   }, []);
 
   const handleAnswerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (questions[currentIndex].data.type === "checkbox") {
+    if (questions[currentIndex]?.data.type === "checkbox") {
       const value = e.target.value;
       setUserAnswer((prev) =>
         prev.includes(value)
@@ -64,7 +64,7 @@ const Quiz = () => {
   };
 
   const checkAnswer = () => {
-    const correct = questions[currentIndex].data.correctAnswer;
+    const correct = questions[currentIndex]?.data.correctAnswer;
     if (Array.isArray(correct)) {
       setIsCorrect(
         Array.isArray(userAnswer) &&
@@ -73,12 +73,26 @@ const Quiz = () => {
     } else {
       setIsCorrect(userAnswer === correct);
     }
+
+    
+    if (isCorrect) {
+      setScore(score + 1);
+    }
   };
 
   const handleNext = () => {
     setCurrentIndex((prev) => prev + 1);
     setUserAnswer([]);
     setIsCorrect(null);
+  };
+
+  const handleSubmit = () => {
+    
+    if (score === questions.length) {
+      alert(`Congrats! You scored ${score}/${questions.length}`);
+    } else {
+      alert(`Oops, try again! You scored ${score}/${questions.length}`);
+    }
   };
 
   if (questions.length === 0) return <p>Loading...</p>;
@@ -91,12 +105,13 @@ const Quiz = () => {
         Question {currentIndex + 1}/{questions.length}
       </h1>
 
-      <div dangerouslySetInnerHTML={{ __html: currentQuestion.content }} />
+      
+      <div dangerouslySetInnerHTML={{ __html: currentQuestion?.content || '' }} />
 
       <div className="mt-4">
-        {currentQuestion.data.type === "checkbox" ? (
+        {currentQuestion?.data?.type === "checkbox" ? (
           <div>
-            {currentQuestion.data.options?.map((option, idx) => (
+            {(currentQuestion?.data?.options || []).map((option, idx) => (
               <div key={idx}>
                 <label>
                   <input
@@ -113,7 +128,7 @@ const Quiz = () => {
           </div>
         ) : (
           <div>
-            {currentQuestion.data.options?.map((option, idx) => (
+            {(currentQuestion?.data?.options || []).map((option, idx) => (
               <div key={idx}>
                 <label className="block">
                   <input
@@ -152,17 +167,26 @@ const Quiz = () => {
           Check Answer
         </button>
 
-        <button
-          onClick={handleNext}
-          disabled={isCorrect !== true}
-          className={`px-4 py-2 rounded ${
-            isCorrect === true
-              ? "bg-blue-500 text-white hover:bg-blue-600"
-              : "bg-gray-400 text-gray-200 cursor-not-allowed"
-          }`}
-        >
-          Next Question
-        </button>
+        {currentIndex === questions.length - 1 ? (
+          <button
+            onClick={handleSubmit}
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            Submit
+          </button>
+        ) : (
+          <button
+            onClick={handleNext}
+            disabled={isCorrect !== true}
+            className={`px-4 py-2 rounded ${
+              isCorrect === true
+                ? "bg-blue-500 text-white hover:bg-blue-600"
+                : "bg-gray-400 text-gray-200 cursor-not-allowed"
+            }`}
+          >
+            Next Question
+          </button>
+        )}
       </div>
 
       <div className="w-full bg-gray-200 rounded-full h-2.5 mt-6">

@@ -1,4 +1,5 @@
 ---
+tags: [beginner-friendly-javascript, javascript, programming]
 type: radio
 correctAnswer: "React"
 options:
@@ -10,7 +11,3 @@ options:
 
 Which library is primarily used for building user interfaces?
 
-<!-- - [ ] Vue
-- [ ] Angular
-- [x] React
-- [ ] Node -->

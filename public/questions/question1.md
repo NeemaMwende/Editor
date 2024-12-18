@@ -1,4 +1,5 @@
 ---
+tags: [beginner-friendly-javascript, javascript, programming]
 type: radio
 correctAnswer: "useHash: true"
 options:

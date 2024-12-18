@@ -1,4 +1,5 @@
 ---
+tags: [beginner-friendly-javascript, javascript, programming]
 type: code
 correctAnswer: "console.log('Hello, World!');"
 options:
