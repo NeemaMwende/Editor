@@ -9,11 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "font-awesome": "^4.7.0",
+    "froala-editor": "^4.3.1",
     "gray-matter": "^4.0.3",
+    "marked": "^15.0.4",
     "next": "15.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-froala-wysiwyg": "^4.3.1",
+    "react-markdown": "^9.0.1",
+    "react-router-dom": "^7.0.2",
     "remark": "^15.0.1",
+    "remark-gfm": "^4.0.0",
     "remark-html": "^16.0.1"
   },
   "devDependencies": {
